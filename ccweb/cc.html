@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Currency Calculator</title>
+  </head>
+  <body>
+    <h1>Currency Calculator</h1>
+    <form id="currency-calculator-form">
+      <label for="amount">Enter amount:</label>
+      <input type="text" id="amount" name="amount">
+      <br>
+      <label for="from-currency">Enter from currency:</label>
+      <input type="text" id="from-currency" name="from-currency">
+      <br>
+      <label for="to-currency">Enter to currency:</label>
+      <input type="text" id="to-currency" name="to-currency">
+      <br><br>
+      <input type="submit" value="Convert">
+    </form>
+    <br>
+    <div id="result"></div>
+    <script>
+      const form = document.querySelector("#currency-calculator-form");
+      const amountInput = document.querySelector("#amount");
+      const fromCurrencyInput = document.querySelector("#from-currency");
+      const toCurrencyInput = document.querySelector("#to-currency");
+      const resultDiv = document.querySelector("#result");
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const exchangeRates = {
+          USD: 1.0,
+          RUB: 10.0,
+          NGN: 5.76,
+          INR: 72.93
+        };
+
+        const amount = parseFloat(amountInput.value);
+        const fromCurrency = fromCurrencyInput.value;
+        const toCurrency = toCurrencyInput.value;
+
+        const fromRate = exchangeRates[fromCurrency];
+        const toRate = exchangeRates[toCurrency];
+
+        const result = amount * (toRate / fromRate);
+
+        resultDiv.innerHTML = `${amount.toFixed(2)} ${fromCurrency} is equivalent to ${result.toFixed(2)} ${toCurrency}`;
+      });
+    </script>
+  </body>
+</html>
